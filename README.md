@@ -1,6 +1,6 @@
 # EW-remove-cookie
 
-An example Akamai Edgeworker script which shows how to get the value from a cookie, put that value in a separate request header but also remove that cookie again.
+An example Akamai Edgeworker script which shows how to get the value from a cookie, put that value in a separate request header but also remove that cookie going forward to origin.
 
 ## Table of Contents
 
@@ -10,7 +10,7 @@ An example Akamai Edgeworker script which shows how to get the value from a cook
 ## Installation
 
 
-```bash
+```
 $ git clone https://github.com/jjgrinwis/ew-cookie.git
 $ cd ew-cookie
 $ npm init
@@ -21,13 +21,16 @@ $ mkdir dist
 $ mkdir built
 ```
 
-Get the group-id you want to create this EdgeWorker in and create a new Edgeworker-id
+Get the group-id you want to create this EdgeWorker in.
+
+*Make sure to use an entry from .edgerc with the correct credentials*
+
 
 ```bash
 $ npm run list-groups
 ```
 
-Update package.json with correct group-id. Using tier-100
+Update your package.json with the correct group-id and create a new edgeworker-id.
 ```bash
 $ npm run create-ew-id
 ```
