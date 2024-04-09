@@ -4,8 +4,11 @@ https://techdocs.akamai.com/edgeworkers/docs/cookies
 */
 import { Cookies } from 'cookies';
 
-const cookieToRemove: string = 'testcookie'
-const headerName: string = 'cookie-value'
+// our list of cookies we want to remove and add the value to outgoing request header to origin
+const cookieList: { [key: string]: string } = {
+    "AccessToken": "x-sombrero-auth",
+    "BCSessionID": "x-sombrero-personalization"
+}
 
 // Only making changes when request is going to origin
 export async function onOriginRequest(request: EW.IngressOriginRequest) {
@@ -18,14 +21,22 @@ export async function onOriginRequest(request: EW.IngressOriginRequest) {
     And if there, add it to our request header and remove that specific cookie.
     */
     if (cookies !== undefined) {
-        var cookieValue = cookies.get(cookieToRemove)
 
-        if (cookieValue !== undefined) {
-            request.addHeader(headerName, cookieValue)
+        // loop through our list of cookies we want to remove
+        for (const cookieName in cookieList) {
+            
+            // get the cookie based on the key of our cookieList
+            var cookieValue = cookies.get(cookieName)
 
-            // delete cookie from cookie object and push to request header again using correct format.
-            cookies.delete(cookieToRemove);
-            request.setHeader('cookie', cookies.toHeader());
+            // if it exists add value of the cookie to the extra header
+            if (cookieValue !== undefined) {
+                request.addHeader(cookieList[cookieName], cookieValue)
+
+            // delete cookie from cookie object
+            cookies.delete(cookieName)
+            }
         }
+        // last but not least set and cleanup our cookie header
+        request.setHeader('cookie', cookies.toHeader());
     } 
 }
