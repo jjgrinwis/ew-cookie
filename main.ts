@@ -14,7 +14,7 @@ const cookieList: { [key: string]: string } = {
 export async function onOriginRequest(request: EW.IngressOriginRequest) {
 
     // new cookies object from the cookie header
-    let cookies = new Cookies(request.getHeader('Cookie'))
+    const cookies = new Cookies(request.getHeader('Cookie'))
 
     /*
     Check if we have a cookie header, if so, check if our specific cookie exists
@@ -26,7 +26,7 @@ export async function onOriginRequest(request: EW.IngressOriginRequest) {
         for (const cookieName in cookieList) {
             
             // get the cookie based on the key of our cookieList
-            var cookieValue = cookies.get(cookieName)
+            const cookieValue = cookies.get(cookieName)
 
             // if it exists add value of the cookie to the extra header
             if (cookieValue !== undefined) {
@@ -36,7 +36,7 @@ export async function onOriginRequest(request: EW.IngressOriginRequest) {
             cookies.delete(cookieName)
             }
         }
-        // last but not least set and cleanup our cookie header
+        // last but not least cleanup and set our cookie header
         request.setHeader('cookie', cookies.toHeader());
     } 
 }
