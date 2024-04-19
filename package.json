@@ -1,16 +1,16 @@
 {
   "name": "ew-cookie",
-  "version": "0.0.1",
+  "version": "0.0.13",
   "description": "Add cookie value to request-header and remove cookie",
   "main": "index.js",
   "config": {
-    "ewid": "84498",
+    "ewid": "84459",
     "edgerc_section": "gss",
-    "accountswitchkey": "1-4KOY4P:1-5G3LB",
+    "accountswitchkey": "B-M-1YX7F48:1-8BYUX",
     "description": "Add cookie value to request-header and remove cookie",
     "ew_name": "ew-cookie",
     "tier": "100",
-    "ew_group_id": "193153"
+    "ew_group_id": "93068"
   },
   "scripts": {
     "build": "npm run build-ts",
